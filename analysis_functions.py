@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 def procesar_datos_dbld(file_path):
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='latin-1') as f:
         lines = f.readlines()[2:]
     data_rows = []
     for line in lines:
