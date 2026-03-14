@@ -10,7 +10,7 @@ from analysis_functions import procesar_datos_dbld, comparar_ajustes_completo
 # This example assumes files might be in a mounted drive path or uploaded.
 
 st.set_page_config(layout="wide")
-st.title("Biomechanic Adjustment Analysis")
+st.title("Compare Saddle Pressure")
 
 st.markdown("Upload two `.dbld` files to compare initial and post-adjustment biomechanical data.")
 
