@@ -3,10 +3,14 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+import io # Import io module for TextIOWrapper
 
-def procesar_datos_dbld(file_path):
-    with open(file_path, 'r', encoding='latin-1') as f:
-        lines = f.readlines()[2:]
+def procesar_datos_dbld(file_like_object):
+    # Ensure the file pointer is at the beginning
+    file_like_object.seek(0)
+    # Wrap the file-like object with TextIOWrapper to read as text with specified encoding
+    f = io.TextIOWrapper(file_like_object, encoding='latin-1')
+    lines = f.readlines()[2:]
     data_rows = []
     for line in lines:
         if ':' in line:

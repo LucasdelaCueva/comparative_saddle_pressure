@@ -10,7 +10,7 @@ from analysis_functions import procesar_datos_dbld, comparar_ajustes_completo
 # This example assumes files might be in a mounted drive path or uploaded.
 
 st.set_page_config(layout="wide")
-st.title("Compare Saddle Pressure")
+st.title("Compare Saddle Pressure") # Changed title here
 
 st.markdown("Upload two `.dbld` files to compare initial and post-adjustment biomechanical data.")
 
@@ -24,19 +24,8 @@ notes_input = st.text_input("Adjustment Notes (e.g., 'SillÃ­n -5mm | Punta -2.5Â
 
 if st.button("Run Analysis"):
     if file1 is not None and file2 is not None:
-        # Save uploaded files to a temporary location to be read by analysis_functions
-        # For a real Streamlit app, you'd want a more robust temporary file handling
-        # or modify procesar_datos_dbld to accept file-like objects.
-        temp_dir = "./temp_uploads"
-        os.makedirs(temp_dir, exist_ok=True)
-
-        file1_path = os.path.join(temp_dir, file1.name)
-        with open(file1_path, "wb") as f:
-            f.write(file1.getbuffer())
-
-        file2_path = os.path.join(temp_dir, file2.name)
-        with open(file2_path, "wb") as f:
-            f.write(file2.getbuffer())
+        # No need for temporary file storage anymore
+        # Pass file-like objects directly
 
         st.subheader("Analysis Report")
         
@@ -46,14 +35,10 @@ if st.button("Run Analysis"):
 
         f = io.StringIO()
         with redirect_stdout(f):
-            # The comparar_ajustes_completo function displays plots via plt.show()
-            # and prints the comparative table to stdout. For Streamlit, we need to capture these.
-            # We'll run it once to get the plots, then re-call it to get the dataframe printing.
-            # Ideally, the function would return the figure and dataframe directly.
-
             # Execute the function, which will display the plots via plt.show()
             # and print the table to stdout. We capture stdout to display the table.
-            comparar_ajustes_completo(file1_path, file2_path, notas=notes_input)
+            # Pass file-like objects directly
+            comparar_ajustes_completo(file1, file2, notas=notes_input) 
         
         # Capture the figure displayed by matplotlib.pyplot
         # This assumes the function creates and shows a single figure.
@@ -75,13 +60,10 @@ if st.button("Run Analysis"):
 
         st.success("Analysis complete!")
         
-        # Clean up temporary files
-        os.remove(file1_path)
-        os.remove(file2_path)
-        os.rmdir(temp_dir)
+        # No need for temporary file cleanup anymore
 
     else:
         st.warning("Please upload both initial and post-adjustment files to run the analysis.")
 
 st.markdown("\n---")
-st.markdown("**Note:** For this Streamlit app to work with `analysis_functions.py` as currently written, files need to be temporarily saved. In a deployed app, consider modifying `procesar_datos_dbld` to accept file-like objects directly for better performance and security.")
+st.markdown("**Note:** This Streamlit app now handles file uploads directly as file-like objects for better performance and security.")
