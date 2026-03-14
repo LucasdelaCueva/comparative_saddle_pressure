@@ -53,7 +53,7 @@ if st.button("Run Analysis"):
 
             # Execute the function, which will display the plots via plt.show()
             # and print the table to stdout. We capture stdout to display the table.
-            comparar_ajustes_completo(file1_path, file2_path, notes=notes_input)
+            comparar_ajustes_completo(file1_path, file2_path, notas=notes_input)
         
         # Capture the figure displayed by matplotlib.pyplot
         # This assumes the function creates and shows a single figure.
